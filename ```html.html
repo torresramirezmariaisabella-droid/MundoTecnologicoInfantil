@@ -1,0 +1,226 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mundo Tecnológico Infantil</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#e6f7ff;
+    text-align:center;
+    padding:20px;
+}
+
+#game{
+    background:white;
+    max-width:700px;
+    margin:auto;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 0 10px gray;
+}
+
+button{
+    padding:12px;
+    margin:10px;
+    width:220px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#score{
+    font-size:22px;
+    color:green;
+}
+
+#badge{
+    font-size:24px;
+    margin-top:10px;
+}
+
+#question{
+    font-size:24px;
+    margin:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+<h1>🎮 Mundo Tecnológico Infantil</h1>
+
+<h2 id="nivel">Nivel 1</h2>
+
+<div id="score">Puntos: 0</div>
+
+<div id="question"></div>
+
+<div id="answers"></div>
+
+<div id="badge"></div>
+
+</div>
+
+<script>
+
+let puntos = 0;
+let actual = 0;
+
+const preguntas = [
+
+{
+pregunta:"¿Cuál es un computador?",
+opciones:["💻 Computador","🍎 Manzana","⚽ Balón"],
+correcta:0
+},
+
+{
+pregunta:"¿Con qué escribimos en el computador?",
+opciones:["⌨️ Teclado","🖨️ Impresora","🧸 Juguete"],
+correcta:0
+},
+
+{
+pregunta:"¿Cuál sirve para mover el cursor?",
+opciones:["🖱️ Mouse","🍌 Banano","📚 Libro"],
+correcta:0
+},
+
+{
+pregunta:"¿Cuál muestra imágenes?",
+opciones:["🖥️ Monitor","⚽ Balón","🍪 Galleta"],
+correcta:0
+},
+
+{
+pregunta:"¿Cuál imprime documentos?",
+opciones:["🖨️ Impresora","🐶 Perro","🍎 Manzana"],
+correcta:0
+},
+
+{
+pregunta:"¿Cuál es un dispositivo portátil?",
+opciones:["📱 Tablet","🥤 Jugo","🎈 Globo"],
+correcta:0
+},
+
+{
+pregunta:"¿Qué usamos para escuchar sonidos?",
+opciones:["🎧 Audífonos","🍞 Pan","⚽ Balón"],
+correcta:0
+},
+
+{
+pregunta:"¿Cuál almacena información?",
+opciones:["💾 Memoria USB","🍌 Banano","🐱 Gato"],
+correcta:0
+},
+
+{
+pregunta:"¿Qué sirve para navegar por internet?",
+opciones:["💻 Computador","🍎 Fruta","🚲 Bicicleta"],
+correcta:0
+},
+
+{
+pregunta:"¿Qué dispositivo tomamos para hacer fotos?",
+opciones:["📷 Cámara","🍰 Pastel","⚽ Balón"],
+correcta:0
+}
+
+];
+
+function cargarPregunta(){
+
+if(actual >= preguntas.length){
+
+let medalla = "🥉 Explorador";
+
+if(puntos >= 80) medalla = "🥈 Experto";
+if(puntos >= 100) medalla = "🥇 Super Genio Digital";
+
+document.getElementById("game").innerHTML = `
+<h1>🏆 ¡Felicitaciones!</h1>
+<h2>Terminaste el juego</h2>
+<p>Puntaje final: ${puntos}</p>
+<h2>${medalla}</h2>
+<h3>DIPLOMA</h3>
+<p>Has completado exitosamente Mundo Tecnológico Infantil.</p>
+`;
+
+return;
+}
+
+let p = preguntas[actual];
+
+document.getElementById("nivel").innerText =
+"Nivel " + (actual+1);
+
+document.getElementById("question").innerText =
+p.pregunta;
+
+let html = "";
+
+p.opciones.forEach((op,index)=>{
+html += `
+<button onclick="verificar(${index})">
+${op}
+</button><br>`;
+});
+
+document.getElementById("answers").innerHTML = html;
+}
+
+function verificar(respuesta){
+
+if(respuesta === preguntas[actual].correcta){
+
+alert("✅ Muy bien");
+puntos += 10;
+
+}else{
+
+alert("❌ Intenta nuevamente");
+}
+
+document.getElementById("score").innerText =
+"Puntos: " + puntos;
+
+actual++;
+
+if(puntos >= 50){
+document.getElementById("badge").innerHTML =
+"🥉 Explorador Tecnológico";
+}
+
+if(puntos >= 80){
+document.getElementById("badge").innerHTML =
+"🥈 Experto Tecnológico";
+}
+
+if(puntos >= 100){
+document.getElementById("badge").innerHTML =
+"🥇 Super Genio Digital";
+}
+
+cargarPregunta();
+}
+
+cargarPregunta();
+
+</script>
+
+</body>
+</html>
+```
